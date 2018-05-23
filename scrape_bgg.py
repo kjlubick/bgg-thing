@@ -33,8 +33,3 @@ def getDescriptionsFromTree(tree):
         if child.tag == 'boardgame':
             desc.append(child.find('description').text)
     return desc
-
-
-ids = getIds('boat')
-tree = getGamesFromIds(ids)
-print getDescriptionsFromTree(tree)
