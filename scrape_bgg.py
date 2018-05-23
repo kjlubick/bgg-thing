@@ -5,19 +5,30 @@
 import requests
 from xml.etree import ElementTree
 
-url = 'https://www.boardgamegeek.com/xmlapi/boardgame/2536,1234,857'
 
-r = requests.get(url)
+def getIds(keyword):
+    url = 'https://www.boardgamegeek.com/xmlapi2/search?type=boardgame&query='+keyword
+    # if keyword == 'hot':
+    #     url = 'https://www.boardgamegeek.com/xmlapi2/hot?type=boardgame'
+    r = requests.get(url)
+    if r.status_code >= 400:
+        return 'ERROR'
+    tree = ElementTree.fromstring(r.content)
+    ids = []
+    for child in tree:
+        ids += [child.attrib['id']]
+    return ids
 
-print r.status_code
+print getIds('boat')
 
-tree = ElementTree.fromstring(r.content)
 
-print tree
-#root = tree.getroot()
-for child in tree:
-    print child.tag
-    if child.tag == 'boardgame':
-        # for k in child:
-        #     print k
-        print child.find('description').text
+# url = 'https://www.boardgamegeek.com/xmlapi/boardgame/2536,1234,857'
+
+# r = requests.get(url)
+
+# tree = ElementTree.fromstring(r.content)
+
+# for child in tree:
+#     print child.tag
+#     if child.tag == 'boardgame':
+#         print child.find('description').text
