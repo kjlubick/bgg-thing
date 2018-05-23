@@ -28,10 +28,10 @@ def getGamesFromIds(ids):
     return tree
 
 def getDescriptionsFromTree(tree):
-    desc = ''
+    desc = []
     for child in tree:
         if child.tag == 'boardgame':
-            desc += child.find('description').text
+            desc.append(child.find('description').text)
     return desc
 
 
